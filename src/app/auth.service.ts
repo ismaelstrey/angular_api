@@ -21,8 +21,12 @@ export class AuthService {
     const token = authResult.token;
     const payload = jwtDecode(token) as JWTPayload;
     const expiresAt = moment.unix(payload.exp);
-
+    const user = authResult.user;
+    console.log(payload);
     localStorage.setItem('token', authResult.token);
+    localStorage.setItem('user_name', user.name);
+    localStorage.setItem('user_email', user.email);
+    localStorage.setItem('user_email_verified_at', user.email_verified_at);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
@@ -62,6 +66,7 @@ export class AuthService {
     const expiresAt = JSON.parse(expiration);
 
     return moment(expiresAt);
+    // moment("20111031", "YYYYMMDD").fromNow();
   }
 
   isLoggedIn() {
@@ -81,7 +86,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if (token) {
       const cloned = req.clone({
-        headers: req.headers.set('Authorization', 'JWT '.concat(token))
+        headers: req.headers.set('Authorization', 'Bearer '.concat(token))
       });
 
       return next.handle(cloned);
@@ -111,8 +116,10 @@ export class AuthGuard implements CanActivate {
 }
 
 interface JWTPayload {
-  user_id: number;
-  username: string;
-  email: string;
   exp: number;
+  id: number;
+  payload: number;
+  name: string;
+  email: string;
+  email_verified_at: boolean;
 }
