@@ -13,6 +13,12 @@ import { HomeComponent } from './home/home/home.component';
 import { AuthService, AuthGuard, AuthInterceptor } from './auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ListaComponent } from './produtos/lista/lista.component';
+import { EmpresaComponent } from './empresa/empresa/empresa.component';
+import { ProdutosComponent } from './produtos/produtos/produtos.component';
+import { LojaComponent } from './produtos/loja/loja.component';
+import { IfoodComponent } from './produtos/ifood/ifood.component';
+import { RestaurantesComponent } from './produtos/restaurantes/restaurantes.component';
+import { FastfoodComponent } from './produtos/fastfood/fastfood.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,13 @@ import { ListaComponent } from './produtos/lista/lista.component';
     EquipeComponent,
     HomeEmpresaComponent,
     HomeComponent,
-    ListaComponent
+    ListaComponent,
+    EmpresaComponent,
+    ProdutosComponent,
+    LojaComponent,
+    IfoodComponent,
+    RestaurantesComponent,
+    FastfoodComponent
   ],
   imports: [
     BrowserModule,

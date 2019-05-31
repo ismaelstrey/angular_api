@@ -276,6 +276,10 @@ img {
   color: #FFFFFF;
 }
 
+.branco {
+  color: #FFFFFF
+}
+
 @media screen and (max-width: 991px) {
   .sidebar-collapse .navbar-collapse {
     position: fixed;

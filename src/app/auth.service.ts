@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { CanActivate, Router } from '@angular/router';
-
 import { Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
-
 import * as jwtDecode from 'jwt-decode';
 import * as moment from 'moment';
-
 import { environment } from '../environments/environment';
 
 @Injectable()
@@ -22,7 +19,7 @@ export class AuthService {
     const payload = jwtDecode(token) as JWTPayload;
     const expiresAt = moment.unix(payload.exp);
     const user = authResult.user;
-    console.log(payload);
+
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('user_name', user.name);
     localStorage.setItem('user_email', user.email);
@@ -50,6 +47,7 @@ export class AuthService {
   }
 
   refreshToken() {
+    console.log('refresh');
     if (moment().isBetween(this.getExpiration().subtract(1, 'days'), this.getExpiration())) {
       return this.http.post(
         this.apiRoot.concat('login-refresh'),
@@ -59,6 +57,7 @@ export class AuthService {
         shareReplay(),
       ).subscribe();
     }
+    console.log(this.apiRoot);
   }
 
   getExpiration() {
@@ -66,7 +65,6 @@ export class AuthService {
     const expiresAt = JSON.parse(expiration);
 
     return moment(expiresAt);
-    // moment("20111031", "YYYYMMDD").fromNow();
   }
 
   isLoggedIn() {
